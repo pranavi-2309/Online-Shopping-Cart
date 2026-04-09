@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopKart - Your Premium Shopping Destination</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Hero Banner Section -->
+    <section id="hero-section" class="hero-section">
+        <div class="hero-container">
+            <div class="hero-left">
+                <div class="hero-badge">New Collection 2025</div>
+                <h1 class="hero-title">Discover Your<br>Perfect Style</h1>
+                <p class="hero-subtitle">Shop the latest trends in fashion, accessories & more.<br>Free shipping on orders over ₹4,000!</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-hero-primary" id="shop-now-btn">
+                        Shop Now
+                    </button>
+                    <button class="btn btn-hero-secondary" id="shop-by-goal-btn">
+                        <i class="fas fa-bullseye"></i> Shop by Goal
+                    </button>
+                </div>
+                <div class="hero-features">
+                    <div class="feature-check">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Free Shipping</span>
+                    </div>
+                    <div class="feature-check">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Quality Products</span>
+                    </div>
+                    <div class="feature-check">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Easy Returns</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-right">
+                <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=700&h=900&fit=crop" alt="Fashion Shopping" class="hero-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- Login/Signup Modal -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content auth-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="auth-container">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" id="login-tab">Login</button>
+                    <button class="auth-tab" id="signup-tab">Sign Up</button>
+                </div>
+                
+                <!-- Login Form -->
+                <div id="login-form" class="auth-form-container">
+                    <h2 class="auth-title">Welcome Back!</h2>
+                    <form class="auth-form" id="login-form-inputs">
+                        <div class="form-group">
+                            <label><i class="fas fa-envelope"></i> Email Address</label>
+                            <input type="email" id="login-email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-lock"></i> Password</label>
+                            <input type="password" id="login-password" placeholder="Enter your password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </button>
+                    </form>
+                    
+                    <div class="divider">
+                        <span>OR</span>
+                    </div>
+                    
+                    <button class="btn btn-google" id="google-signin-btn">
+                        <i class="fab fa-google"></i> Continue with Google
+                    </button>
+                    
+                    <button class="btn btn-guest" id="guest-access-btn">
+                        <i class="fas fa-user"></i> Continue as Guest
+                    </button>
+                </div>
+                
+                <!-- Signup Form -->
+                <div id="signup-form" class="auth-form-container hidden">
+                    <h2 class="auth-title">Create Account</h2>
+                    <form class="auth-form" id="signup-form-inputs">
+                        <div class="form-group">
+                            <label><i class="fas fa-user"></i> Full Name</label>
+                            <input type="text" id="signup-name" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-envelope"></i> Email Address (Gmail only)</label>
+                            <input type="email" id="signup-email" placeholder="your-email@gmail.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-phone"></i> Phone Number</label>
+                            <input type="tel" id="signup-phone" placeholder="Enter your phone number" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-lock"></i> Password</label>
+                            <input type="password" id="signup-password" placeholder="Create a password" required>
+                        </div>
+                        <div class="form-group">
+                            <label><i class="fas fa-lock"></i> Confirm Password</label>
+                            <input type="password" id="signup-confirm-password" placeholder="Confirm your password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <i class="fas fa-user-plus"></i> Sign Up
+                        </button>
+                    </form>
+                    
+                    <div class="divider">
+                        <span>OR</span>
+                    </div>
+                    
+                    <button class="btn btn-google" id="google-signup-btn">
+                        <i class="fab fa-google"></i> Sign Up with Google
+                    </button>
+                </div>
+                
+                <p class="auth-note">
+                    <i class="fas fa-info-circle"></i> 
+                    Sign up with Gmail to save your cart, wishlist, and get personalized recommendations
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Shopping Section -->
+    <section id="shopping-section" class="shopping-section hidden">
+        <!-- Header Navigation -->
+        <header class="main-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>ShopKart</span>
+                    </div>
+                    <nav class="main-nav">
+                        <a href="#" id="nav-featured">Featured</a>
+                        <a href="#" id="nav-goals">Shop by Goals</a>
+                    </nav>
+                    <div class="header-actions">
+                        <div class="search-bar">
+                            <input type="text" id="search-input" placeholder="Search products...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <button class="icon-btn" id="wishlist-btn">
+                            <i class="fas fa-heart"></i>
+                            <span class="badge" id="wishlist-count">0</span>
+                        </button>
+                        <button class="icon-btn" id="cart-btn">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="badge" id="cart-count">0</span>
+                        </button>
+                        <button class="icon-btn" id="user-profile-btn">
+                            <i class="fas fa-user"></i>
+                        </button>
+                        <button class="icon-btn" id="orders-btn">
+                            <i class="fas fa-box"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Featured Products Section -->
+        <section id="featured-section" class="content-section">
+            <div class="container">
+                <div class="section-header">
+                    <button class="btn-back-goals hidden" id="back-to-goals-btn">
+                        <i class="fas fa-arrow-left"></i> Back to Goals
+                    </button>
+                    <h2 class="section-title">Featured Products</h2>
+                </div>
+                <div class="filters" id="category-filters">
+                    <button class="filter-btn active" data-category="all">All</button>
+                    <button class="filter-btn" data-category="clothing">Clothing</button>
+                    <button class="filter-btn" data-category="electronics">Electronics</button>
+                    <button class="filter-btn" data-category="accessories">Accessories</button>
+                    <button class="filter-btn" data-category="home">Home & Living</button>
+                </div>
+                <div id="products-grid" class="products-grid">
+                    <!-- Products will be loaded dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Shop by Goals Section -->
+        <section id="goals-section" class="content-section hidden">
+            <div class="container">
+                <h2 class="section-title">Shop by Lifestyle Goals</h2>
+                <div class="goals-grid">
+                    <div class="goal-card" data-goal="fitness">
+                        <i class="fas fa-dumbbell"></i>
+                        <h3>Fitness & Active</h3>
+                        <p>Stay active and healthy</p>
+                    </div>
+                    <div class="goal-card" data-goal="professional">
+                        <i class="fas fa-user-tie"></i>
+                        <h3>Professional</h3>
+                        <p>Elevate your work style</p>
+                    </div>
+                    <div class="goal-card" data-goal="casual">
+                        <i class="fas fa-coffee"></i>
+                        <h3>Casual Comfort</h3>
+                        <p>Everyday essentials</p>
+                    </div>
+                    <div class="goal-card" data-goal="luxury">
+                        <i class="fas fa-crown"></i>
+                        <h3>Luxury Living</h3>
+                        <p>Premium lifestyle</p>
+                    </div>
+                </div>
+                <div id="goal-products-grid" class="products-grid">
+                    <!-- Goal-specific products will be loaded here -->
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- Product Detail Modal -->
+    <div id="product-modal" class="modal">
+        <div class="modal-content product-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="product-detail">
+                <div class="product-images">
+                    <img id="product-detail-image" src="" alt="Product">
+                </div>
+                <div class="product-info">
+                    <h2 id="product-detail-name"></h2>
+                    <div class="product-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-count">(245 reviews)</span>
+                    </div>
+                    <p class="product-price">
+                        <span id="product-detail-price"></span>
+                        <span class="original-price" id="product-detail-original-price"></span>
+                    </p>
+                    <p id="product-detail-description" class="product-description"></p>
+                    
+                    <!-- Size Selection (for clothing and shoes) -->
+                    <div id="size-selection" class="size-selection hidden">
+                        <h4>Select Size:</h4>
+                        <div class="size-options" id="clothing-sizes">
+                            <button class="size-btn" data-size="XS">XS</button>
+                            <button class="size-btn" data-size="S">S</button>
+                            <button class="size-btn" data-size="M">M</button>
+                            <button class="size-btn" data-size="L">L</button>
+                            <button class="size-btn" data-size="XL">XL</button>
+                            <button class="size-btn" data-size="XXL">XXL</button>
+                        </div>
+                        <div class="size-options hidden" id="shoe-sizes">
+                            <button class="size-btn" data-size="UK 6">UK 6</button>
+                            <button class="size-btn" data-size="UK 7">UK 7</button>
+                            <button class="size-btn" data-size="UK 8">UK 8</button>
+                            <button class="size-btn" data-size="UK 9">UK 9</button>
+                            <button class="size-btn" data-size="UK 10">UK 10</button>
+                            <button class="size-btn" data-size="UK 11">UK 11</button>
+                        </div>
+                    </div>
+                    
+                    <div class="product-actions">
+                        <button class="btn btn-primary btn-large" id="add-to-cart-detail">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                        <button class="btn btn-outline btn-large" id="add-to-wishlist-detail">
+                            <i class="fas fa-heart"></i> Add to Wishlist
+                        </button>
+                        <button class="btn btn-secondary btn-large" id="try-on-detail">
+                            <i class="fas fa-camera"></i> Try On
+                        </button>
+                    </div>
+                    
+                    <div class="product-features">
+                        <div class="feature">
+                            <i class="fas fa-shipping-fast"></i>
+                            <span>Free Delivery</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-undo"></i>
+                            <span>Easy Returns</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Secure Payment</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Try On Modal -->
+    <div id="try-on-modal" class="modal">
+        <div class="modal-content try-on-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="try-on-container">
+                <div class="try-on-panel">
+                    <h3><i class="fas fa-camera"></i> Virtual Try On</h3>
+                    <p class="try-on-note">Upload a front-facing photo and preview this product.</p>
+
+                    <label class="btn btn-outline btn-block try-on-upload-btn" for="try-on-upload">
+                        <i class="fas fa-upload"></i> Upload Your Photo
+                    </label>
+                    <input type="file" id="try-on-upload" accept="image/*" class="hidden">
+
+                    <div class="form-group">
+                        <label for="overlay-opacity">Product Overlay Opacity</label>
+                        <input type="range" id="overlay-opacity" min="0" max="90" value="0">
+                    </div>
+
+                    <button class="btn btn-outline btn-block" id="clear-try-on">
+                        <i class="fas fa-eraser"></i> Clear Photo
+                    </button>
+
+                    <button class="btn btn-primary btn-block" id="generate-tryon" type="button">
+                        <i class="fas fa-wand-magic-sparkles"></i> Generate Try-On
+                    </button>
+                </div>
+
+                <div class="try-on-preview">
+                    <div class="preview-stage" id="preview-stage">
+                        <img id="try-on-user-image" alt="Your uploaded preview" class="hidden">
+                        <img id="try-on-product-image" alt="Selected product overlay">
+                        <div id="try-on-placeholder" class="try-on-placeholder">
+                            <i class="fas fa-image"></i>
+                            <p>Upload a photo to start try-on preview</p>
+                        </div>
+                    </div>
+                    <p class="preview-caption" id="try-on-product-name"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h3>Shopping Cart</h3>
+            <span class="close-sidebar" id="close-cart">&times;</span>
+        </div>
+        <div class="sidebar-content" id="cart-items">
+            <!-- Cart items will be loaded here -->
+        </div>
+        <div class="sidebar-footer">
+            <div class="cart-total">
+                <div class="discount-info">
+                    <i class="fas fa-clock"></i>
+                    <span id="discount-timer">Discount expires in: <strong id="timer-display">--:--</strong></span>
+                </div>
+                <div class="total-row">
+                    <span>Subtotal:</span>
+                    <span id="cart-subtotal">₹0</span>
+                </div>
+                <div class="total-row discount-row">
+                    <span>Discount:</span>
+                    <span id="cart-discount">-₹0</span>
+                </div>
+                <div class="total-row final-total">
+                    <span>Total:</span>
+                    <span id="cart-total">₹0</span>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-block" id="proceed-checkout">
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- Wishlist Sidebar -->
+    <div id="wishlist-sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h3>My Wishlist</h3>
+            <span class="close-sidebar" id="close-wishlist">&times;</span>
+        </div>
+        <div class="sidebar-content" id="wishlist-items">
+            <!-- Wishlist items will be loaded here -->
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="modal">
+        <div class="modal-content checkout-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="checkout-container">
+                <h2>Checkout</h2>
+                
+                <!-- Step Indicator -->
+                <div class="checkout-steps">
+                    <div class="step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <div class="step-label">Address</div>
+                    </div>
+                    <div class="step" data-step="2">
+                        <div class="step-number">2</div>
+                        <div class="step-label">Payment</div>
+                    </div>
+                    <div class="step" data-step="3">
+                        <div class="step-number">3</div>
+                        <div class="step-label">Review</div>
+                    </div>
+                </div>
+
+                <!-- Address Form -->
+                <div id="address-step" class="checkout-step active">
+                    <h3>Delivery Address</h3>
+                    
+                    <!-- Saved Addresses -->
+                    <div id="saved-addresses-container" class="saved-addresses-section">
+                        <h4>Select a Saved Address</h4>
+                        <div id="saved-addresses-list"></div>
+                        <button type="button" class="btn btn-outline btn-add-address" id="show-new-address-btn">
+                            <i class="fas fa-plus"></i> Add New Address
+                        </button>
+                    </div>
+
+                    <!-- New Address Form -->
+                    <div id="new-address-form-container" class="hidden">
+                        <div class="form-header">
+                            <h4>Enter New Address</h4>
+                            <button type="button" class="btn-link" id="cancel-new-address">Use saved address</button>
+                        </div>
+                        <form id="address-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Full Name *</label>
+                                    <input type="text" id="addr-name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Phone Number *</label>
+                                    <input type="tel" id="addr-phone" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Address Line 1 *</label>
+                                <input type="text" id="addr-line1" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Address Line 2</label>
+                                <input type="text" id="addr-line2">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>City *</label>
+                                    <input type="text" id="addr-city" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>State *</label>
+                                    <input type="text" id="addr-state" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>PIN Code *</label>
+                                    <input type="text" id="addr-pincode" required>
+                                </div>
+                            </div>
+                            <div class="form-group checkbox-group">
+                                <label>
+                                    <input type="checkbox" id="save-address-checkbox" checked>
+                                    <span>Save this address for future orders</span>
+                                </label>
+                            </div>
+                            <button type="button" class="btn btn-primary" id="continue-payment">
+                                Continue to Payment
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Payment Method -->
+                <div id="payment-step" class="checkout-step">
+                    <h3>Payment Method</h3>
+                    <div class="form-group">
+                        <label for="delivery-date">Preferred Delivery Date</label>
+                        <input type="date" id="delivery-date" required>
+                        <small>Choose a date between tomorrow and the next 30 days.</small>
+                    </div>
+                    <div class="payment-methods">
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="card" checked>
+                            <div class="payment-card">
+                                <i class="fas fa-credit-card"></i>
+                                <span>Credit/Debit Card</span>
+                            </div>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="upi">
+                            <div class="payment-card">
+                                <i class="fas fa-mobile-alt"></i>
+                                <span>UPI</span>
+                            </div>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="netbanking">
+                            <div class="payment-card">
+                                <i class="fas fa-university"></i>
+                                <span>Net Banking</span>
+                            </div>
+                        </label>
+                        <label class="payment-option">
+                            <input type="radio" name="payment" value="cod">
+                            <div class="payment-card">
+                                <i class="fas fa-money-bill-wave"></i>
+                                <span>Cash on Delivery</span>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="checkout-actions">
+                        <button class="btn btn-outline" id="back-to-address">Back</button>
+                        <button class="btn btn-primary" id="continue-review">Continue to Review</button>
+                    </div>
+                </div>
+
+                <!-- Order Review -->
+                <div id="review-step" class="checkout-step">
+                    <h3>Review Your Order</h3>
+                    <div class="order-summary">
+                        <div class="summary-section">
+                            <h4>Delivery Address</h4>
+                            <p id="review-address"></p>
+                        </div>
+                        <div class="summary-section">
+                            <h4>Payment Method</h4>
+                            <p id="review-payment"></p>
+                        </div>
+                        <div class="summary-section">
+                            <h4>Delivery Date</h4>
+                            <p id="review-delivery-date"></p>
+                        </div>
+                        <div class="summary-section">
+                            <h4>Order Items</h4>
+                            <div id="review-items"></div>
+                        </div>
+                        <div class="summary-section">
+                            <h4>Price Details</h4>
+                            <div class="price-breakdown">
+                                <div class="price-row">
+                                    <span>Subtotal:</span>
+                                    <span id="review-subtotal"></span>
+                                </div>
+                                <div class="price-row">
+                                    <span>Discount:</span>
+                                    <span id="review-discount"></span>
+                                </div>
+                                <div class="price-row">
+                                    <span>Delivery:</span>
+                                    <span>FREE</span>
+                                </div>
+                                <div class="price-row total">
+                                    <span>Total Amount:</span>
+                                    <span id="review-total"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checkout-actions">
+                        <button class="btn btn-outline" id="back-to-payment">Back</button>
+                        <button class="btn btn-primary btn-large" id="place-order">
+                            <i class="fas fa-check-circle"></i> Place Order
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+    <div id="order-success-modal" class="modal">
+        <div class="modal-content success-modal-content">
+            <div class="success-animation">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Order Placed Successfully!</h2>
+            <p>Thank you for shopping with ShopKart</p>
+            <p class="order-id">Order ID: <strong id="order-number"></strong></p>
+            <p class="order-message">Your order will be delivered soon. We'll send you tracking details via email.</p>
+            
+            <div class="return-policy-box">
+                <i class="fas fa-undo-alt"></i>
+                <div>
+                    <h4>Easy Returns Available</h4>
+                    <p>7-day return policy on all products. Free return pickup available.</p>
+                </div>
+            </div>
+            
+            <div class="order-actions">
+                <button class="btn btn-primary" id="continue-shopping">Continue Shopping</button>
+                <button class="btn btn-outline" id="view-return-policy">View Return Policy</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- My Orders Modal -->
+    <div id="orders-modal" class="modal">
+        <div class="modal-content orders-modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="orders-container">
+                <h2><i class="fas fa-box"></i> My Orders</h2>
+                <div id="orders-list">
+                    <!-- Orders will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Return Request Modal -->
+    <div id="return-request-modal" class="modal">
+        <div class="modal-content return-request-content">
+            <span class="close-modal">&times;</span>
+            <div class="return-container">
+                <h2><i class="fas fa-undo-alt"></i> Return Request</h2>
+                
+                <div class="return-product-info" id="return-product-info">
+                    <!-- Product info will be loaded here -->
+                </div>
+                
+                <form id="return-form">
+                    <div class="form-group">
+                        <label>Reason for Return *</label>
+                        <select id="return-reason" required>
+                            <option value="">Select a reason</option>
+                            <option value="wrong-size">Wrong Size</option>
+                            <option value="defective">Defective/Damaged Product</option>
+                            <option value="not-as-described">Not as Described</option>
+                            <option value="quality-issue">Quality Issue</option>
+                            <option value="received-wrong">Received Wrong Item</option>
+                            <option value="changed-mind">Changed My Mind</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Additional Comments</label>
+                        <textarea id="return-comments" rows="4" placeholder="Please provide more details about the issue..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Return Method *</label>
+                        <div class="return-methods">
+                            <label class="return-method-option">
+                                <input type="radio" name="return-method" value="pickup" checked>
+                                <div class="method-card">
+                                    <i class="fas fa-truck"></i>
+                                    <span>Free Pickup</span>
+                                    <small>Pickup within 2-3 days</small>
+                                </div>
+                            </label>
+                            <label class="return-method-option">
+                                <input type="radio" name="return-method" value="self-ship">
+                                <div class="method-card">
+                                    <i class="fas fa-shipping-fast"></i>
+                                    <span>Self Ship</span>
+                                    <small>Ship on your own</small>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="return-policy-note">
+                        <i class="fas fa-info-circle"></i>
+                        <p>Please ensure the product is unused, with original tags and packaging intact. Returns are subject to quality check.</p>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <i class="fas fa-paper-plane"></i> Submit Return Request
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Return Success Modal -->
+    <div id="return-success-modal" class="modal">
+        <div class="modal-content return-success-content">
+            <div class="success-animation">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Return Request Submitted!</h2>
+            <p class="return-ticket-id">Ticket ID: <strong id="return-ticket-number"></strong></p>
+            <p>Your return request has been received. We'll process it within 24 hours.</p>
+            <div class="return-timeline">
+                <div class="timeline-step">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Request Submitted</span>
+                </div>
+                <div class="timeline-step">
+                    <i class="far fa-circle"></i>
+                    <span>Quality Check</span>
+                </div>
+                <div class="timeline-step">
+                    <i class="far fa-circle"></i>
+                    <span>Refund Initiated</span>
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="closeModal('return-success-modal'); closeModal('return-request-modal');">Got It</button>
+        </div>
+    </div>
+
+    <!-- Return Policy Modal -->
+    <div id="return-policy-modal" class="modal">
+        <div class="modal-content return-policy-content">
+            <span class="close-modal">&times;</span>
+            <div class="policy-container">
+                <div class="policy-header">
+                    <i class="fas fa-undo-alt"></i>
+                    <h2>Return & Refund Policy</h2>
+                </div>
+                
+                <div class="policy-section">
+                    <h3><i class="fas fa-calendar-check"></i> Return Window</h3>
+                    <p>You have <strong>7 days</strong> from the date of delivery to initiate a return for most products.</p>
+                </div>
+                
+                <div class="policy-section">
+                    <h3><i class="fas fa-box-open"></i> Eligible Products</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Products must be unused and in original packaging</li>
+                        <li><i class="fas fa-check"></i> All tags and labels must be intact</li>
+                        <li><i class="fas fa-check"></i> No damage or alterations to the product</li>
+                        <li><i class="fas fa-times"></i> Undergarments, cosmetics, and perishables are non-returnable</li>
+                    </ul>
+                </div>
+                
+                <div class="policy-section">
+                    <h3><i class="fas fa-truck"></i> Return Process</h3>
+                    <ol>
+                        <li>Go to <strong>My Orders</strong> and select the product</li>
+                        <li>Click on <strong>Return</strong> and choose reason</li>
+                        <li>Free pickup will be scheduled within 2-3 business days</li>
+                        <li>Quality check will be done after product is received</li>
+                    </ol>
+                </div>
+                
+                <div class="policy-section">
+                    <h3><i class="fas fa-money-bill-wave"></i> Refund Timeline</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Refund initiated within 2-3 days after quality check</li>
+                        <li><i class="fas fa-check"></i> Amount credited within 5-7 business days</li>
+                        <li><i class="fas fa-check"></i> Original payment method will be credited</li>
+                    </ul>
+                </div>
+                
+                <div class="policy-section">
+                    <h3><i class="fas fa-exchange-alt"></i> Exchange Policy</h3>
+                    <p>For size/color exchanges, we offer <strong>free exchange</strong> within 7 days. Exchange product will be shipped after receiving the original item.</p>
+                </div>
+                
+                <div class="policy-section highlight">
+                    <h3><i class="fas fa-phone-alt"></i> Need Help?</h3>
+                    <p>Contact our customer support:</p>
+                    <p><strong>Email:</strong> support@shopkart.com</p>
+                    <p><strong>Phone:</strong> 1800-123-4567 (Toll Free)</p>
+                    <p><strong>Hours:</strong> 9 AM - 9 PM (All days)</p>
+                </div>
+                
+                <button class="btn btn-primary btn-block" onclick="closeModal('return-policy-modal')">Got It</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Required Modal (for guest users) -->
+    <div id="login-required-modal" class="modal">
+        <div class="modal-content login-required-content">
+            <span class="close-modal">&times;</span>
+            <div class="login-required">
+                <i class="fas fa-lock"></i>
+                <h3>Login Required</h3>
+                <p>Please sign in with your Google account to add items to cart or wishlist</p>
+                <button class="btn btn-google" id="login-from-guest">
+                    <i class="fab fa-google"></i> Sign in with Google
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase Authentication Module (CDN) -->
+    <script type="module" src="firebase-auth.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
